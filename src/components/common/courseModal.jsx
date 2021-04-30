@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { Modal, Container, Form, Button } from "react-bootstrap";
 
 function MySubjectModal(props) {
-  const [Name, setName] = useState("");
-  const [Starts, setStarts] = useState("");
-  const [Ends, setEnds] = useState("");
+  const [name, setName] = useState("");
+  const [starts, setStarts] = useState("");
+  const [ends, setEnds] = useState("");
   return (
     <Modal {...props} aria-labelledby="contained-modal-title-vcenter">
       <Modal.Header closeButton>
@@ -35,7 +35,7 @@ function MySubjectModal(props) {
             </Form.Group>
             <Button
               variant="primary"
-              onClick={() => props.handleAddition({ Name, Starts, Ends })}
+              onClick={() => props.handleAddition({ name, starts, ends })}
             >
               Submit
             </Button>

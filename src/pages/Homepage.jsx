@@ -3,11 +3,33 @@ import { Link } from "react-router-dom";
 import { Card, ListGroup, Button } from "react-bootstrap";
 import MySubjectModal from "../components/common/courseModal";
 import { auth, db } from "../components/firebase";
+import Cookies from "js-cookie";
 
 class HomePage extends Component {
   state = {
     modalShow: false,
     classes: [],
+  };
+  componentDidMount() {
+    this.handleLoad();
+  }
+  handleLoad = async () => {
+    const userUID = Cookies.get("UID");
+    const docRef = db.doc(`users/${userUID}`);
+    const data = await docRef
+      .get()
+      .then(function (doc) {
+        if (doc.exists) {
+          return doc.data();
+        } else {
+          // doc.data() will be undefined in this case
+          console.log("No such document!");
+        }
+      })
+      .catch(function (error) {
+        console.log("Error getting document:", error);
+      });
+    this.setState({ classes: [data] });
   };
   handleAddClass = (course) => {
     const newClasses = this.state.classes.push(course);
@@ -15,14 +37,19 @@ class HomePage extends Component {
     const userUID = auth.currentUser.uid;
     const docRef = db.doc(`users/${userUID}`);
     docRef
-      .set({
-        course: {
-          name: course.name,
-          starts: course.starts,
-          ends: course.ends,
-          subject: [],
+      .set(
+        {
+          courses: [
+            {
+              name: course.name,
+              starts: course.starts,
+              ends: course.ends,
+              subject: [],
+            },
+          ],
         },
-      })
+        { merge: true }
+      )
       .then(function () {
         console.log("Successfully added!");
       })
