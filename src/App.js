@@ -7,15 +7,25 @@ import RegisterForm from "./components/common/register";
 import LoginForm from "./components/common/login";
 import NotFound from "./components/common/not-Found";
 import HomePage from "./pages/Homepage";
+import Cookies from "js-cookie";
+import { findLastKey } from "lodash";
 
 class App extends Component {
   state = {
-    isLoggedIn: true,
+    isLoggedIn: false,
     user: null,
   };
+  componentDidMount() {
+    const user = Cookies.get("UID");
+    if (user) this.setState({ isLoggedIn: true, user });
+  }
   handleLogging = (user) => {
     this.setState({ isLoggedIn: true, user });
-    console.log(this.state.user);
+    Cookies.set("UID", user.uid);
+  };
+  handleLogout = () => {
+    this.setState({ isLoggedIn: findLastKey, user: null });
+    Cookies.remove("UID");
   };
   render() {
     return (
@@ -39,7 +49,11 @@ class App extends Component {
                 <LoginForm handleLogging={this.handleLogging} />
               )}
             />
-            <Route exact path="/" render={() => <HomePage />} />
+            <Route
+              exact
+              path="/"
+              render={() => <HomePage handleLogout={this.handleLogout} />}
+            />
           </div>
         </main>
       </Switch>
