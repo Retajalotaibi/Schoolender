@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import { Card, ListGroup, Button } from "react-bootstrap";
 import MySubjectModal from "../components/common/courseModal";
 import { auth, db } from "../components/firebase";
@@ -12,8 +13,7 @@ class HomePage extends Component {
     const newClasses = this.state.classes.push(course);
     this.setState({ newClasses });
     const userUID = auth.currentUser.uid;
-    const docRef = db.doc(`courses/${userUID}`);
-    console.log(course);
+    const docRef = db.doc(`users/${userUID}`);
     docRef
       .set({
         course: {
@@ -41,6 +41,9 @@ class HomePage extends Component {
             <li>Class</li>
             <li>School</li>
           </ul>
+          <Link to="/register" onClick={() => this.props.handleLogout()}>
+            Logout
+          </Link>
         </div>
         <div className="content">
           <h1>Hello Matie 👋</h1>

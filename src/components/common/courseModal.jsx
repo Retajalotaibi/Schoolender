@@ -15,7 +15,7 @@ function MySubjectModal(props) {
       <Modal.Body className="show-grid">
         <Container>
           <Form>
-            <Form.Group style={{ height: "300px" }}>
+            <Form.Group>
               <Form.Label>Course</Form.Label>
               <Form.Control
                 onChange={(e) => setName(e.target.value)}
