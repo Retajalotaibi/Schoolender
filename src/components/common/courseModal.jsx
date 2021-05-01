@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Modal, Container, Form, Button } from "react-bootstrap";
 
-function MySubjectModal(props) {
+function CourseModal(props) {
   const [name, setName] = useState("");
   const [starts, setStarts] = useState("");
   const [ends, setEnds] = useState("");
@@ -23,6 +23,7 @@ function MySubjectModal(props) {
                 placeholder="Course Name"
               />
               <Form.Control
+                style={{ margin: "10px 0" }}
                 onChange={(e) => setStarts(e.target.value)}
                 type="date"
                 placeholder="Course Starts"
@@ -46,4 +47,4 @@ function MySubjectModal(props) {
   );
 }
 
-export default MySubjectModal;
+export default CourseModal;

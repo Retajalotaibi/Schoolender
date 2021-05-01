@@ -15,5 +15,6 @@ firebase.initializeApp(firebaseConfig);
 const app = firebase.app();
 
 export default app;
+// export const messaging = firebase.messaging();
 export const db = firebase.firestore();
 export const auth = app.auth();

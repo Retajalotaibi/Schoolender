@@ -9,6 +9,7 @@ import NotFound from "./components/common/not-Found";
 import HomePage from "./pages/Homepage";
 import Cookies from "js-cookie";
 import { findLastKey } from "lodash";
+// import { messaging } from "./components/firebase";
 
 class App extends Component {
   state = {
@@ -16,6 +17,7 @@ class App extends Component {
     user: null,
   };
   componentDidMount() {
+    // messaging.requestPermission()
     const user = Cookies.get("UID");
     if (user) this.setState({ isLoggedIn: true, user });
   }
